@@ -2,6 +2,7 @@ package com.lramosduarte.analyser;
 
 import com.lramosduarte.SimpleClassAttributesPrimitives;
 import com.lramosduarte.data.Attribute;
+import com.lramosduarte.data.TypesToGenerate;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -25,7 +26,7 @@ public class AnalyserTestCase {
 
     @Test
     public void testAnalyseClassPrimitesValues_returnType() {
-        Assertions.assertEquals("boolean", AnalyserTestCase.attribute.type);
+        Assertions.assertEquals(TypesToGenerate.BOOL, AnalyserTestCase.attribute.type);
     }
 
     @Test

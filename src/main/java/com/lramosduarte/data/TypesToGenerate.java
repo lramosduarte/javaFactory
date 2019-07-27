@@ -1,7 +1,9 @@
 package com.lramosduarte.data;
 
-
+import com.google.common.collect.Sets;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
+import java.util.Set;
 
 
 public enum TypesToGenerate {
@@ -11,6 +13,8 @@ public enum TypesToGenerate {
     CHAR(1),
     SMALL_TEXT(256),
     BIG_TEXT(4000);
+
+    private static final Set<String> NUMBERS = Sets.newHashSet("int", "short");
 
     private int size;
 
@@ -27,6 +31,8 @@ public enum TypesToGenerate {
             return TypesToGenerate.CHAR;
         } else if(name.equals("boolean")) {
             return TypesToGenerate.BOOL;
+        } else if (TypesToGenerate.NUMBERS.contains(name)) {
+            return TypesToGenerate.NUMBER;
         }
         throw new NotImplementedException();
     }
