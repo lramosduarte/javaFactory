@@ -5,9 +5,11 @@ import java.lang.reflect.Field;
 
 public class Attribute {
 
+    private Attribute() {}
+
     public String name;
 
-    public String type;
+    public TypesToGenerate type;
 
     public Field field;
 
@@ -15,7 +17,7 @@ public class Attribute {
         Attribute attribute = new Attribute();
         attribute.field = field;
         attribute.name = field.getName();
-        attribute.type = field.getType().getName();
+        attribute.type = TypesToGenerate.getEnum(field.getType().getName());
         return attribute;
     }
 
