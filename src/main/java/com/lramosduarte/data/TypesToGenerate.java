@@ -8,13 +8,10 @@ import java.util.Set;
 
 public enum TypesToGenerate {
     BOOL(1),
-    NUMBER(Integer.MAX_VALUE),
-    DECIMAL(Integer.MAX_VALUE),
+    NUMBER(4),
     CHAR(1),
     SMALL_TEXT(256),
     BIG_TEXT(4000);
-
-    private static final Set<String> NUMBERS = Sets.newHashSet("int", "short");
 
     private int size;
 
@@ -26,15 +23,34 @@ public enum TypesToGenerate {
         return this.size;
     }
 
-    public static TypesToGenerate getEnum(String name) {
-        if (name.equals("char")) {
+    public static TypesToGenerate getEnum(Class<?> type) {
+        if (type.isAssignableFrom(char.class) || type.isAssignableFrom(byte.class)) {
             return TypesToGenerate.CHAR;
-        } else if(name.equals("boolean")) {
+        } else if(type.isAssignableFrom(boolean.class)) {
             return TypesToGenerate.BOOL;
-        } else if (TypesToGenerate.NUMBERS.contains(name)) {
+        } else if (isNumber(type)) {
             return TypesToGenerate.NUMBER;
         }
         throw new NotImplementedException();
+    }
+
+    private static boolean isNumber(Class<?> type) {
+        final Set<String> intPrimitiveNumbers = Sets.newHashSet(
+            int.class.getSimpleName(),
+            short.class.getSimpleName(),
+            long.class.getSimpleName(),
+            double.class.getSimpleName(),
+            float.class.getSimpleName()
+        );
+        if (intPrimitiveNumbers.contains(type.getSimpleName())) {
+            return true;
+        }
+        try {
+            type.asSubclass(Number.class);
+        } catch (ClassCastException ex) {
+            return false;
+        }
+        return true;
     }
 
 }

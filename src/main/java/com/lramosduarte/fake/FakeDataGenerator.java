@@ -10,7 +10,8 @@ public class FakeDataGenerator {
         TypesToGenerate.BOOL, new BoolGenerator(),
         TypesToGenerate.CHAR, new CharGenerator(),
         TypesToGenerate.SMALL_TEXT, new StringGenerator(),
-        TypesToGenerate.BIG_TEXT, new StringGenerator()
+        TypesToGenerate.BIG_TEXT, new StringGenerator(),
+        TypesToGenerate.NUMBER, new NumberGenerator()
     );
 
     public <TypeObject> TypeObject make(TypesToGenerate type) {

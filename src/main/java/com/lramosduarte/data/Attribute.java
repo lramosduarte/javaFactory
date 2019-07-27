@@ -17,7 +17,7 @@ public class Attribute {
         Attribute attribute = new Attribute();
         attribute.field = field;
         attribute.name = field.getName();
-        attribute.type = TypesToGenerate.getEnum(field.getType().getName());
+        attribute.type = TypesToGenerate.getEnum(field.getType());
         return attribute;
     }
 

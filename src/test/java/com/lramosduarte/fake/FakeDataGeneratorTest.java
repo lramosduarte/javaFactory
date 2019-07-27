@@ -39,4 +39,12 @@ public class FakeDataGeneratorTest {
         );
     }
 
+    @Test
+    public void testGeneratorFakeDataToNumber_returnNumber() {
+        Assertions.assertEquals(
+            Integer.class.getSimpleName(),
+            new FakeDataGenerator().make(TypesToGenerate.NUMBER).getClass().getSimpleName()
+        );
+    }
+
 }
