@@ -15,7 +15,7 @@ public class AnalyserTestCase {
 
     @BeforeAll
     public static void setUp() throws ClassNotFoundException {
-        AnalyserTestCase.attributes = new AnalyserImp().analyse(SimpleClassAttributesPrimitives.class);
+        AnalyserTestCase.attributes = AnalyserImp.getAnalyser().analyse(SimpleClassAttributesPrimitives.class);
         AnalyserTestCase.attribute = attributes.iterator().next();
     }
 

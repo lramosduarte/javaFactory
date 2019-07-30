@@ -3,6 +3,6 @@ package com.lramosduarte.fake;
 
 public interface Generator<TypeObject> {
 
-    TypeObject generateFakeData(int len);
+    TypeObject generate(int len);
 
 }

@@ -6,8 +6,8 @@ public class BoolGenerator implements Generator<Boolean>{
     BoolGenerator() {}
 
     @Override
-    public Boolean generateFakeData(int len) {
-        return (Math.random() % 2) == 1;
+    public Boolean generate(int len) {
+        return (Math.random() * 10 % 2) >= 1;
     }
 
 }

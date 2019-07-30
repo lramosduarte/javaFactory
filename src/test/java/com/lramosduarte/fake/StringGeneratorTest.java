@@ -16,7 +16,7 @@ public class StringGeneratorTest {
 
     @Test
     public void testStringGenerator_makeStringWithSuccess() {
-        StringGeneratorTest.generator.generateFakeData(1);
+        StringGeneratorTest.generator.generate(1);
     }
 
     @Test
@@ -24,7 +24,7 @@ public class StringGeneratorTest {
         int sizeString = 256;
         Assertions.assertEquals(
             sizeString,
-            StringGeneratorTest.generator.generateFakeData(sizeString).length()
+            StringGeneratorTest.generator.generate(sizeString).length()
         );
     }
 

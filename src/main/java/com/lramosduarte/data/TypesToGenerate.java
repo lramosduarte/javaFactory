@@ -24,9 +24,12 @@ public enum TypesToGenerate {
     }
 
     public static TypesToGenerate getEnum(Class<?> type) {
-        if (type.isAssignableFrom(char.class) || type.isAssignableFrom(byte.class)) {
+        if (type.isAssignableFrom(char.class) ||
+            type.isAssignableFrom(byte.class) ||
+            type.isAssignableFrom(Character.class)
+        ) {
             return TypesToGenerate.CHAR;
-        } else if(type.isAssignableFrom(boolean.class)) {
+        } else if(type.isAssignableFrom(boolean.class) || type.isAssignableFrom(Boolean.class)) {
             return TypesToGenerate.BOOL;
         } else if (isNumber(type)) {
             return TypesToGenerate.NUMBER;
@@ -34,7 +37,7 @@ public enum TypesToGenerate {
         throw new NotImplementedException();
     }
 
-    private static boolean isNumber(Class<?> type) {
+    public static boolean isNumber(Class<?> type) {
         final Set<String> intPrimitiveNumbers = Sets.newHashSet(
             int.class.getSimpleName(),
             short.class.getSimpleName(),

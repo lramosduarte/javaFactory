@@ -1,5 +1,6 @@
 package com.lramosduarte.fake;
 
+import com.lramosduarte.SimpleClassAttributesPrimitives;
 import com.lramosduarte.data.TypesToGenerate;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -45,6 +46,18 @@ public class FakeDataGeneratorTest {
             Integer.class.getSimpleName(),
             new FakeDataGenerator().make(TypesToGenerate.NUMBER).getClass().getSimpleName()
         );
+    }
+
+    @Test
+    public void testGeneratorFakeDataToClass_returnNewInstanceOfClass() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+        Object cls = new FakeDataGenerator().make(SimpleClassAttributesPrimitives.class);
+        Assertions.assertTrue(cls instanceof SimpleClassAttributesPrimitives);
+    }
+
+    @Test
+    public void testGeneratorFakeDataToClassAttributes_returnNewInstanceOfClassWithData() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+        SimpleClassAttributesPrimitives simpleClass = new FakeDataGenerator().make(SimpleClassAttributesPrimitives.class);
+        Assertions.assertNotEquals(simpleClass.atrChar, new SimpleClassAttributesPrimitives().atrChar);
     }
 
 }

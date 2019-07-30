@@ -1,0 +1,113 @@
+package com.lramosduarte.data;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
+
+public class TypesToGenerateTest {
+
+    @Test
+    public void testIdentifyIfVariableIsNumberWhenPassPrimitiveInt_returnTrue() {
+        Assertions.assertTrue(TypesToGenerate.isNumber(int.class));
+    }
+
+    @Test
+    public void testIdentifyIfVariableIsNumberWhenPassPrimitiveShort_returnTrue() {
+        Assertions.assertTrue(TypesToGenerate.isNumber(short.class));
+    }
+
+    @Test
+    public void testIdentifyIfVariableIsNumberWhenPassPrimitiveLong_returnTrue() {
+        Assertions.assertTrue(TypesToGenerate.isNumber(long.class));
+    }
+
+    @Test
+    public void testIdentifyIfVariableIsNumberWhenPassPrimitiveFloat_returnTrue() {
+        Assertions.assertTrue(TypesToGenerate.isNumber(float.class));
+    }
+
+    @Test
+    public void testIdentifyIfVariableIsNumberWhenPassPrimitiveDouble_returnTrue() {
+        Assertions.assertTrue(TypesToGenerate.isNumber(double.class));
+    }
+
+    @Test
+    public void testIdentifyIfVariableIsNumberWhenPassNumberObjectJava_returnTrue() {
+        Assertions.assertTrue(TypesToGenerate.isNumber(Number.class));
+    }
+
+    @Test
+    public void testIdentifyIfVariableIsNumberWhenPassObjectExtendNumber_returnTrue() {
+        Assertions.assertTrue(TypesToGenerate.isNumber(Integer.class));
+    }
+
+    @Test
+    public void testIdentifyIfVariableIsNumberWhenPassOtherType_returnFalse() {
+        Assertions.assertFalse(TypesToGenerate.isNumber(String.class));
+    }
+
+    @Test
+    public void testEnumReturnBoolWhenPassBooleanPrimitive_returnBoolEnum() {
+        Assertions.assertEquals(
+            TypesToGenerate.BOOL,
+            TypesToGenerate.getEnum(boolean.class)
+        );
+    }
+
+    @Test
+    public void testEnumReturnBoolWhenPassBooleanObject_returnBoolEnum() {
+        Assertions.assertEquals(
+            TypesToGenerate.BOOL,
+            TypesToGenerate.getEnum(Boolean.class)
+        );
+    }
+
+    @Test
+    public void testEnumReturnBoolWhenPassCharPrimitive_returnCharEnum() {
+        Assertions.assertEquals(
+            TypesToGenerate.CHAR,
+            TypesToGenerate.getEnum(char.class)
+        );
+    }
+
+    @Test
+    public void testEnumReturnBoolWhenPassCharObject_returnCharEnum() {
+        Assertions.assertEquals(
+            TypesToGenerate.CHAR,
+            TypesToGenerate.getEnum(Character.class)
+        );
+    }
+
+    @Test
+    public void testEnumReturnBoolWhenPassBytePrimitive_returnCharEnum() {
+        Assertions.assertEquals(
+            TypesToGenerate.CHAR,
+            TypesToGenerate.getEnum(byte.class)
+        );
+    }
+
+    @Test
+    public void testEnumReturnBoolWhenPassCharPrimitive_returnNumberEnum() {
+        Assertions.assertEquals(
+            TypesToGenerate.NUMBER,
+            TypesToGenerate.getEnum(int.class)
+        );
+    }
+
+    @Test
+    public void testEnumReturnBoolWhenPassCharObject_returnNumberEnum() {
+        Assertions.assertEquals(
+            TypesToGenerate.NUMBER,
+            TypesToGenerate.getEnum(Number.class)
+        );
+    }
+
+    @Test
+    public void testPassToEnumComplexObject_returnExceptionNotImplemented() {
+        class ClassTmp {}
+        ClassTmp tmp = new ClassTmp();
+        Assertions.assertThrows(NotImplementedException.class, () -> TypesToGenerate.getEnum(tmp.getClass()));
+    }
+
+}

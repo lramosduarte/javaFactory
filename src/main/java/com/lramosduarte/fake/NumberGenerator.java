@@ -8,7 +8,7 @@ public class NumberGenerator implements Generator<Integer>{
     NumberGenerator() {}
 
     @Override
-    public Integer generateFakeData(int len) {
+    public Integer generate(int len) {
         return new Random().ints(0, len * 10).findFirst().getAsInt();
     }
 }

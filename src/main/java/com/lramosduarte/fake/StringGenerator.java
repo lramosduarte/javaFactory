@@ -10,7 +10,7 @@ public class StringGenerator implements Generator<String>{
     StringGenerator() {}
 
     @Override
-    public String generateFakeData(int len) {
+    public String generate(int len) {
         StringBuilder data = new StringBuilder();
         for (int i = 0; i < len; i++) {
             int asciiCode = new Random().ints(this.START_ALPHABET, this.END_ALPHABET).findFirst().getAsInt();

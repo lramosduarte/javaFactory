@@ -3,13 +3,13 @@ package com.lramosduarte;
 
 public class SimpleClassAttributesPrimitives {
 
-    boolean atrBool;
-    byte atrByte;
-    char atrChar;
-    short atrShort;
-    int atrInt;
-    long atrLong;
-    float atrFloat;
-    double atrDouble;
+    public boolean atrBool;
+//    public byte atrByte;
+    public char atrChar;
+    public short atrShort;
+    public int atrInt;
+    public long atrLong;
+    public float atrFloat;
+    public double atrDouble;
 
 }
