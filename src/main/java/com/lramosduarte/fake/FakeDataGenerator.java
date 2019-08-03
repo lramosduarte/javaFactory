@@ -5,12 +5,10 @@ import com.lramosduarte.analyser.Analyser;
 import com.lramosduarte.analyser.AnalyserImp;
 import com.lramosduarte.data.Attribute;
 import com.lramosduarte.data.TypesToGenerate;
-import com.lramosduarte.exception.AccessAttributeException;
-import com.lramosduarte.exception.InvocationException;
-import com.lramosduarte.exception.MethodNotFoundException;
+import com.lramosduarte.exception.AccessAtributeException;
+import com.lramosduarte.exception.GenerateValueException;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import java.lang.reflect.Constructor;
 import java.util.stream.StreamSupport;
 
 
@@ -38,24 +36,32 @@ public class FakeDataGenerator {
         return objectClass;
     }
 
-    private <Object> void setAttributeValue(Attribute attribute, Object object) {
+    private <Instance> void setAttributeValue(Attribute attribute, Instance object) {
         attribute.field.setAccessible(true);
-        if (TypesToGenerate.NUMBER.equals(attribute.type)) {
-            Method convertNumber;
+        Object value = this.make(attribute.type);
+        if (TypesToGenerate.isShort(attribute.field.getType())) {
             try {
-                convertNumber = Integer.class.getMethod( attribute.field.getType().getSimpleName() + "Value");
+                attribute.field.set(object, Number.class.getMethod("shortValue").invoke(value));
+            } catch (ReflectiveOperationException ex) {
+                throw new GenerateValueException(ex);
             }
-            catch (NoSuchMethodException e) { throw new MethodNotFoundException(e); }
+            return;
+        }
+        try {
+            attribute.field.set(object, value);
+        } catch (IllegalArgumentException e) {
+            Constructor<?> constructor = null;
             try {
-                attribute.field.set(object, convertNumber.invoke(this.make(attribute.type)));
-            }
-            catch (InvocationTargetException ex) { throw new InvocationException(ex); }
-            catch (IllegalAccessException ex) { throw new AccessAttributeException(ex); }
-        } else {
+                constructor = attribute.field.getType().getConstructor(String.class);
+            } catch (NoSuchMethodException ignored) { }
+
             try {
-                attribute.field.set(object, this.make(attribute.type));
+                attribute.field.set(object, constructor.newInstance(value.toString()));
+            } catch (ReflectiveOperationException ex) {
+                throw new GenerateValueException(ex);
             }
-            catch (IllegalAccessException ex) { throw new AccessAttributeException(ex); }
+        } catch (IllegalAccessException ex) {
+            throw new AccessAtributeException(ex);
         }
     }
 

@@ -33,6 +33,8 @@ public enum TypesToGenerate {
             return TypesToGenerate.BOOL;
         } else if (isNumber(type)) {
             return TypesToGenerate.NUMBER;
+        } else if (type.isAssignableFrom(String.class)) {
+            return TypesToGenerate.SMALL_TEXT;
         }
         throw new NotImplementedException();
     }
@@ -54,6 +56,10 @@ public enum TypesToGenerate {
             return false;
         }
         return true;
+    }
+
+    public static boolean isShort(Class<?> type) {
+        return type.isAssignableFrom(short.class) || type.isAssignableFrom(Short.class);
     }
 
 }
