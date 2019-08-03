@@ -12,7 +12,7 @@ public class FakeDataGeneratorTest {
     public void testGeneratorFakeDataToPrimitiveBool_returnBoolPrimitive() {
         Assertions.assertEquals(
             Boolean.class.getSimpleName(),
-            new FakeDataGenerator().make(TypesToGenerate.BOOL).getClass().getSimpleName()
+            FakeDataGenerator.getInstance().make(TypesToGenerate.BOOL).getClass().getSimpleName()
         );
     }
 
@@ -20,7 +20,7 @@ public class FakeDataGeneratorTest {
     public void testGeneratorFakeDataToPrimitiveChar_returnChar() {
         Assertions.assertEquals(
             Character.class.getSimpleName(),
-            new FakeDataGenerator().make(TypesToGenerate.CHAR).getClass().getSimpleName()
+            FakeDataGenerator.getInstance().make(TypesToGenerate.CHAR).getClass().getSimpleName()
         );
     }
 
@@ -28,7 +28,7 @@ public class FakeDataGeneratorTest {
     public void testGeneratorFakeDataToSmallString_returnString() {
         Assertions.assertEquals(
             String.class.getSimpleName(),
-            new FakeDataGenerator().make(TypesToGenerate.SMALL_TEXT).getClass().getSimpleName()
+            FakeDataGenerator.getInstance().make(TypesToGenerate.SMALL_TEXT).getClass().getSimpleName()
         );
     }
 
@@ -36,7 +36,7 @@ public class FakeDataGeneratorTest {
     public void testGeneratorFakeDataToBigString_returnString() {
         Assertions.assertEquals(
             String.class.getSimpleName(),
-            new FakeDataGenerator().make(TypesToGenerate.BIG_TEXT).getClass().getSimpleName()
+            FakeDataGenerator.getInstance().make(TypesToGenerate.BIG_TEXT).getClass().getSimpleName()
         );
     }
 
@@ -44,19 +44,19 @@ public class FakeDataGeneratorTest {
     public void testGeneratorFakeDataToNumber_returnNumber() {
         Assertions.assertEquals(
             Integer.class.getSimpleName(),
-            new FakeDataGenerator().make(TypesToGenerate.NUMBER).getClass().getSimpleName()
+            FakeDataGenerator.getInstance().make(TypesToGenerate.NUMBER).getClass().getSimpleName()
         );
     }
 
     @Test
     public void testGeneratorFakeDataToClass_returnNewInstanceOfClass() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        Object cls = new FakeDataGenerator().make(SimpleClassAttributesPrimitives.class);
+        Object cls = FakeDataGenerator.getInstance().make(SimpleClassAttributesPrimitives.class);
         Assertions.assertTrue(cls instanceof SimpleClassAttributesPrimitives);
     }
 
     @Test
     public void testGeneratorFakeDataToClassAttributes_returnNewInstanceOfClassWithData() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        SimpleClassAttributesPrimitives simpleClass = new FakeDataGenerator().make(SimpleClassAttributesPrimitives.class);
+        SimpleClassAttributesPrimitives simpleClass = FakeDataGenerator.getInstance().make(SimpleClassAttributesPrimitives.class);
         Assertions.assertNotEquals(simpleClass.atrChar, new SimpleClassAttributesPrimitives().atrChar);
     }
 

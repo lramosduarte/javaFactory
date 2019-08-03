@@ -1,4 +1,4 @@
-package com.lramosduarte.fake;
+package com.lramosduarte.fake.generator;
 
 import java.util.Random;
 
@@ -6,8 +6,6 @@ import java.util.Random;
 public class StringGenerator implements Generator<String>{
     private final int START_ALPHABET = 65;
     private final int END_ALPHABET = 90 + 1;
-
-    StringGenerator() {}
 
     @Override
     public String generate(int len) {

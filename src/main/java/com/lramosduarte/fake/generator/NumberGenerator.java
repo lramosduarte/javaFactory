@@ -1,11 +1,9 @@
-package com.lramosduarte.fake;
+package com.lramosduarte.fake.generator;
 
 import java.util.Random;
 
 
 public class NumberGenerator implements Generator<Integer>{
-
-    NumberGenerator() {}
 
     @Override
     public Integer generate(int len) {

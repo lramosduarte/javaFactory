@@ -1,4 +1,4 @@
-package com.lramosduarte.fake;
+package com.lramosduarte.fake.generator;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;

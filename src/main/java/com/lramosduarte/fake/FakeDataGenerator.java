@@ -1,18 +1,30 @@
 package com.lramosduarte.fake;
 
 import com.google.common.collect.ImmutableMap;
+
 import com.lramosduarte.analyser.Analyser;
 import com.lramosduarte.analyser.AnalyserImp;
 import com.lramosduarte.data.Attribute;
 import com.lramosduarte.data.TypesToGenerate;
-import com.lramosduarte.exception.AccessAtributeException;
 import com.lramosduarte.exception.GenerateValueException;
+import com.lramosduarte.fake.generator.BoolGenerator;
+import com.lramosduarte.fake.generator.CharGenerator;
+import com.lramosduarte.fake.generator.Generator;
+import com.lramosduarte.fake.generator.NumberGenerator;
+import com.lramosduarte.fake.generator.StringGenerator;
+import com.lramosduarte.fake.setter.DefaultSetter;
+import com.lramosduarte.fake.setter.ObjectSetter;
+import com.lramosduarte.fake.setter.ShortSetter;
 
-import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.stream.StreamSupport;
 
 
 public class FakeDataGenerator {
+
+    private static FakeDataGenerator instance;
+
+    private FakeDataGenerator() {};
 
     private ImmutableMap<TypesToGenerate, Generator> MAP_GENERATOR = ImmutableMap.of(
         TypesToGenerate.BOOL, new BoolGenerator(),
@@ -31,38 +43,32 @@ public class FakeDataGenerator {
         Iterable<Attribute> attributes = analyser.analyse(cls);
         ObjectClass objectClass = (ObjectClass) cls.newInstance();
         StreamSupport.stream(attributes.spliterator(), false).forEach(a -> {
-            this.setAttributeValue(a, objectClass);
+            try {
+                this.setAttributeValue(a, objectClass);
+            } catch (ReflectiveOperationException ex) {
+                throw new GenerateValueException(ex);
+            }
+
         });
         return objectClass;
     }
 
-    private <Instance> void setAttributeValue(Attribute attribute, Instance object) {
-        attribute.field.setAccessible(true);
-        Object value = this.make(attribute.type);
-        if (TypesToGenerate.isShort(attribute.field.getType())) {
-            try {
-                attribute.field.set(object, Number.class.getMethod("shortValue").invoke(value));
-            } catch (ReflectiveOperationException ex) {
-                throw new GenerateValueException(ex);
-            }
+    private <Instance> void setAttributeValue(Attribute attribute, Instance object) throws IllegalAccessException, InstantiationException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException {
+        if (TypesToGenerate.OBJECT.equals(attribute.type)) {
+            new ObjectSetter(FakeDataGenerator.getInstance()).setAttribute(attribute, object);
+            return;
+        } else if (TypesToGenerate.isShort(attribute.field.getType())) {
+            new ShortSetter(FakeDataGenerator.getInstance()).setAttribute(attribute, object);
             return;
         }
-        try {
-            attribute.field.set(object, value);
-        } catch (IllegalArgumentException e) {
-            Constructor<?> constructor = null;
-            try {
-                constructor = attribute.field.getType().getConstructor(String.class);
-            } catch (NoSuchMethodException ignored) { }
+        new DefaultSetter(FakeDataGenerator.getInstance()).setAttribute(attribute, object);
+    }
 
-            try {
-                attribute.field.set(object, constructor.newInstance(value.toString()));
-            } catch (ReflectiveOperationException ex) {
-                throw new GenerateValueException(ex);
-            }
-        } catch (IllegalAccessException ex) {
-            throw new AccessAtributeException(ex);
+    public static FakeDataGenerator getInstance() {
+        if (FakeDataGenerator.instance == null) {
+            FakeDataGenerator.instance = new FakeDataGenerator();
         }
+        return FakeDataGenerator.instance;
     }
 
 }

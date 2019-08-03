@@ -1,7 +1,6 @@
 package com.lramosduarte.data;
 
 import com.google.common.collect.Sets;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.Set;
 
@@ -11,7 +10,8 @@ public enum TypesToGenerate {
     NUMBER(4),
     CHAR(1),
     SMALL_TEXT(256),
-    BIG_TEXT(4000);
+    BIG_TEXT(4000),
+    OBJECT(0);
 
     private int size;
 
@@ -36,7 +36,7 @@ public enum TypesToGenerate {
         } else if (type.isAssignableFrom(String.class)) {
             return TypesToGenerate.SMALL_TEXT;
         }
-        throw new NotImplementedException();
+        return OBJECT;
     }
 
     public static boolean isNumber(Class<?> type) {
