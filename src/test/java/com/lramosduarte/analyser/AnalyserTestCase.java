@@ -1,6 +1,6 @@
 package com.lramosduarte.analyser;
 
-import com.lramosduarte.SimpleClassAttributesPrimitives;
+import com.lramosduarte.classutils.SimpleClassAttributesPrimitives;
 import com.lramosduarte.data.Attribute;
 import com.lramosduarte.data.TypesToGenerate;
 import org.junit.jupiter.api.Assertions;

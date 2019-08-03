@@ -1,5 +1,4 @@
-package com.lramosduarte;
-
+package com.lramosduarte.classutils;
 
 public class SimpleClassAttributesPrimitives {
 

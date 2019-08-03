@@ -1,5 +1,4 @@
-package com.lramosduarte;
-
+package com.lramosduarte.classutils;
 
 import java.math.BigDecimal;
 
