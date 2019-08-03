@@ -1,6 +1,6 @@
 package com.lramosduarte.fake;
 
-import com.lramosduarte.SimpleClassAttributesObjects;
+import com.lramosduarte.classutils.SimpleClassAttributesObjects;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
