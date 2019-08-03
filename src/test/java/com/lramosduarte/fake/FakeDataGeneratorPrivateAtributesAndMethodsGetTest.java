@@ -10,7 +10,7 @@ public class FakeDataGeneratorPrivateAtributesAndMethodsGetTest {
 
     @Test
     public void testGenerateValuesObjectesPrivatesAttributes_returnInstanceWithSuccess() throws IllegalAccessException, ClassNotFoundException, InstantiationException {
-        ClassWithPrivateAttributesAndGetMethods instance = new FakeDataGenerator().make(ClassWithPrivateAttributesAndGetMethods.class);
+        ClassWithPrivateAttributesAndGetMethods instance = FakeDataGenerator.getInstance().make(ClassWithPrivateAttributesAndGetMethods.class);
         Assertions.assertNotNull(instance);
     }
 
@@ -23,13 +23,13 @@ public class FakeDataGeneratorPrivateAtributesAndMethodsGetTest {
 
     @Test
     public void testGenerateValuesObjectesPrivatesAttributesUseGetMethod_returnValueGenerated() throws IllegalAccessException, ClassNotFoundException, InstantiationException {
-        ClassWithPrivateAttributesAndGetMethods instance = new FakeDataGenerator().make(ClassWithPrivateAttributesAndGetMethods.class);
+        ClassWithPrivateAttributesAndGetMethods instance = FakeDataGenerator.getInstance().make(ClassWithPrivateAttributesAndGetMethods.class);
         Assertions.assertNotNull(instance.getAtrString());
     }
 
     @Test
     public void testClassUsingLombokGenerateValuesObjectesPrivatesAttributes_returnInstanceWithSuccess() throws IllegalAccessException, ClassNotFoundException, InstantiationException {
-        ClassUsingLombok instance = new FakeDataGenerator().make(ClassUsingLombok.class);
+        ClassUsingLombok instance = FakeDataGenerator.getInstance().make(ClassUsingLombok.class);
         Assertions.assertNotNull(instance);
     }
 
@@ -42,7 +42,7 @@ public class FakeDataGeneratorPrivateAtributesAndMethodsGetTest {
 
     @Test
     public void testClassUsingLombokGenerateValuesObjectesPrivatesAttributesUseGetMethod_returnValueGenerated() throws IllegalAccessException, ClassNotFoundException, InstantiationException {
-        ClassUsingLombok instance = new FakeDataGenerator().make(ClassUsingLombok.class);
+        ClassUsingLombok instance = FakeDataGenerator.getInstance().make(ClassUsingLombok.class);
         Assertions.assertNotNull(instance.getAtrString());
     }
 

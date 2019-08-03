@@ -9,7 +9,7 @@ public class FakeDataGeneratorObjectsValuesTest {
 
     @Test
     public void testGenerateValuesObjectes_returnInstanceWithSuccess() throws IllegalAccessException, ClassNotFoundException, InstantiationException {
-        SimpleClassAttributesObjects instance = new FakeDataGenerator().make(SimpleClassAttributesObjects.class);
+        SimpleClassAttributesObjects instance = FakeDataGenerator.getInstance().make(SimpleClassAttributesObjects.class);
         Assertions.assertNotNull(instance);
     }
 
@@ -21,7 +21,7 @@ public class FakeDataGeneratorObjectsValuesTest {
 
     @Test
     public void testGenerateValuesObjectes_returnAttributesNotNull() throws IllegalAccessException, ClassNotFoundException, InstantiationException {
-        SimpleClassAttributesObjects instance = new FakeDataGenerator().make(SimpleClassAttributesObjects.class);
+        SimpleClassAttributesObjects instance = FakeDataGenerator.getInstance().make(SimpleClassAttributesObjects.class);
         Assertions.assertNotNull(instance.atrBigDecimal);
     }
 

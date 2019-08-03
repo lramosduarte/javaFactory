@@ -11,14 +11,15 @@ public class FakeDataGeneratorNestedObjectsTest {
     private static ClassWithNestedObjects objectWithNestedObjects;
 
     @BeforeAll
-    public static void setUpAll() throws IllegalAccessException, ClassNotFoundException, InstantiationException {
+    public static void setUp() throws IllegalAccessException, ClassNotFoundException, InstantiationException {
         FakeDataGeneratorNestedObjectsTest.objectWithNestedObjects =
-            new FakeDataGenerator().make(ClassWithNestedObjects.class);
+            FakeDataGenerator.getInstance().make(ClassWithNestedObjects.class);
     }
 
     @Test
     public void testGenerateObjectWithNestedObjects_returnInstanceWithSuccess() {
-        Assertions.assertNotNull(objectWithNestedObjects);
+        ClassWithNestedObjects object = new ClassWithNestedObjects();
+        Assertions.assertNotNull(object);
     }
 
     @Test
