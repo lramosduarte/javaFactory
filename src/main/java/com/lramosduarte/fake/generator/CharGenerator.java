@@ -1,11 +1,9 @@
-package com.lramosduarte.fake;
+package com.lramosduarte.fake.generator;
 
 import java.util.Random;
 
 
 public class CharGenerator implements Generator<Character>{
-
-    CharGenerator() {}
 
     @Override
     public Character generate(int len) {

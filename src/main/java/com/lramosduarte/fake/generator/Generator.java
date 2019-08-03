@@ -1,4 +1,4 @@
-package com.lramosduarte.fake;
+package com.lramosduarte.fake.generator;
 
 
 public interface Generator<TypeObject> {

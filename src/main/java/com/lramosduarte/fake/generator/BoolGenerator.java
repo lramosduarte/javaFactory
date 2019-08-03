@@ -1,9 +1,7 @@
-package com.lramosduarte.fake;
+package com.lramosduarte.fake.generator;
 
 
 public class BoolGenerator implements Generator<Boolean>{
-
-    BoolGenerator() {}
 
     @Override
     public Boolean generate(int len) {

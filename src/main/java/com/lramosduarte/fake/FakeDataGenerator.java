@@ -7,6 +7,11 @@ import com.lramosduarte.data.Attribute;
 import com.lramosduarte.data.TypesToGenerate;
 import com.lramosduarte.exception.AccessAtributeException;
 import com.lramosduarte.exception.GenerateValueException;
+import com.lramosduarte.fake.generator.BoolGenerator;
+import com.lramosduarte.fake.generator.CharGenerator;
+import com.lramosduarte.fake.generator.Generator;
+import com.lramosduarte.fake.generator.NumberGenerator;
+import com.lramosduarte.fake.generator.StringGenerator;
 
 import java.lang.reflect.Constructor;
 import java.util.stream.StreamSupport;
