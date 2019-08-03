@@ -15,7 +15,7 @@ public class AnalyserImp implements Analyser {
     @Override
     public <T> Iterable<Attribute> analyse(T cls) throws ClassNotFoundException {
         Field[] attributes = Class.forName(((Class) cls).getName()).getDeclaredFields();
-        return Stream.of(attributes).map(Attribute::of).collect(Collectors.toList());
+        return Stream.of(attributes).filter(a -> !a.isSynthetic()).map(Attribute::of).collect(Collectors.toList());
     }
 
     public static Analyser getAnalyser() {
