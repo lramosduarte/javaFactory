@@ -38,6 +38,18 @@ public class FakeDataGenerator {
 
     private <Instance> void setAttributeValue(Attribute attribute, Instance object) {
         attribute.field.setAccessible(true);
+        if (TypesToGenerate.OBJECT.equals(attribute.type)) {
+            try {
+                attribute.field.set(object, this.make(attribute.field.getType()));
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            return;
+        }
         Object value = this.make(attribute.type);
         if (TypesToGenerate.isShort(attribute.field.getType())) {
             try {
@@ -63,6 +75,7 @@ public class FakeDataGenerator {
         } catch (IllegalAccessException ex) {
             throw new AccessAtributeException(ex);
         }
+        return;
     }
 
 }

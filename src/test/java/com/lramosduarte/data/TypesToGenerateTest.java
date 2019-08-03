@@ -104,10 +104,12 @@ public class TypesToGenerateTest {
     }
 
     @Test
-    public void testPassToEnumComplexObject_returnExceptionNotImplemented() {
+    public void testPassToEnumComplexObject_returnObjectEnum() {
         class ClassTmp {}
-        ClassTmp tmp = new ClassTmp();
-        Assertions.assertThrows(NotImplementedException.class, () -> TypesToGenerate.getEnum(tmp.getClass()));
+        Assertions.assertEquals(
+            TypesToGenerate.OBJECT,
+            TypesToGenerate.getEnum(ClassTmp.class)
+        );
     }
 
 }
