@@ -16,7 +16,7 @@ public class ShortSetter implements Setter {
 
     @Override
     public <Instance> void setAttribute(Attribute attribute, Instance object) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        this.setAccessibilityAttribute(attribute);
+        attribute.field.setAccessible(true);
         Object value = this.fakeDataGenerator.make(attribute.type);
         attribute.field.set(object, Number.class.getMethod("shortValue").invoke(value));
     }

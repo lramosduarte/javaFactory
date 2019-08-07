@@ -9,8 +9,4 @@ public interface Setter {
 
     <Instance> void setAttribute(Attribute attribute, Instance object) throws IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException, ClassNotFoundException;
 
-    default void setAccessibilityAttribute(Attribute attribute) {
-        attribute.field.setAccessible(true);
-    }
-
 }
