@@ -2,6 +2,8 @@ package com.lramosduarte.data;
 
 import com.google.common.collect.Sets;
 
+import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 
 
@@ -11,7 +13,9 @@ public enum TypesToGenerate {
     CHAR(1),
     SMALL_TEXT(256),
     BIG_TEXT(4000),
-    OBJECT(0);
+    OBJECT(0),
+    COLLECTION(1),
+    DICTIONARY(1);
 
     private int size;
 
@@ -35,6 +39,10 @@ public enum TypesToGenerate {
             return TypesToGenerate.NUMBER;
         } else if (type.isAssignableFrom(String.class)) {
             return TypesToGenerate.SMALL_TEXT;
+        } else if (Collection.class.isAssignableFrom(type)) {
+            return TypesToGenerate.COLLECTION;
+        } else if (Map.class.isAssignableFrom(type)) {
+            return TypesToGenerate.DICTIONARY;
         }
         return OBJECT;
     }
