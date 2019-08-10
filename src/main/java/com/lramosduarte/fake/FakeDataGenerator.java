@@ -12,7 +12,9 @@ import com.lramosduarte.fake.generator.CharGenerator;
 import com.lramosduarte.fake.generator.Generator;
 import com.lramosduarte.fake.generator.NumberGenerator;
 import com.lramosduarte.fake.generator.StringGenerator;
+import com.lramosduarte.fake.setter.CollectionSetter;
 import com.lramosduarte.fake.setter.DefaultSetter;
+import com.lramosduarte.fake.setter.DictionarySetter;
 import com.lramosduarte.fake.setter.ObjectSetter;
 import com.lramosduarte.fake.setter.ShortSetter;
 
@@ -24,7 +26,11 @@ public class FakeDataGenerator {
 
     private static FakeDataGenerator instance;
 
-    private FakeDataGenerator() {};
+    private Analyser analyser;
+
+    private FakeDataGenerator() {
+        this.analyser = AnalyserImp.getAnalyser();
+    };
 
     private ImmutableMap<TypesToGenerate, Generator> MAP_GENERATOR = ImmutableMap.of(
         TypesToGenerate.BOOL, new BoolGenerator(),
@@ -39,8 +45,7 @@ public class FakeDataGenerator {
     }
 
     public <ObjectClass> ObjectClass make(Class<?> cls) throws IllegalAccessException, InstantiationException, ClassNotFoundException {
-        Analyser analyser = AnalyserImp.getAnalyser();
-        Iterable<Attribute> attributes = analyser.analyse(cls);
+        Iterable<Attribute> attributes = this.analyser.analyse(cls);
         ObjectClass objectClass = (ObjectClass) cls.newInstance();
         StreamSupport.stream(attributes.spliterator(), false).forEach(a -> {
             try {
@@ -59,6 +64,12 @@ public class FakeDataGenerator {
             return;
         } else if (TypesToGenerate.isShort(attribute.field.getType())) {
             new ShortSetter(FakeDataGenerator.getInstance()).setAttribute(attribute, object);
+            return;
+        } else if (TypesToGenerate.COLLECTION.equals(attribute.type)) {
+            new CollectionSetter(FakeDataGenerator.getInstance()).setAttribute(attribute, object);
+            return;
+        } else if (TypesToGenerate.DICTIONARY.equals(attribute.type)) {
+            new DictionarySetter(FakeDataGenerator.getInstance()).setAttribute(attribute, object);
             return;
         }
         new DefaultSetter(FakeDataGenerator.getInstance()).setAttribute(attribute, object);

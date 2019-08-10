@@ -2,7 +2,9 @@ package com.lramosduarte.data;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
+import java.util.List;
+import java.util.Map;
 
 
 public class TypesToGenerateTest {
@@ -109,6 +111,38 @@ public class TypesToGenerateTest {
         Assertions.assertEquals(
             TypesToGenerate.OBJECT,
             TypesToGenerate.getEnum(ClassTmp.class)
+        );
+    }
+
+    @Test
+    public void testPassListToEnum_returnCollectionEnum() {
+        Assertions.assertEquals(
+            TypesToGenerate.COLLECTION,
+            TypesToGenerate.getEnum(List.class)
+        );
+    }
+
+    @Test
+    public void testPassSetToEnum_returnCollectionEnum() {
+        Assertions.assertEquals(
+            TypesToGenerate.COLLECTION,
+            TypesToGenerate.getEnum(List.class)
+        );
+    }
+
+    @Test
+    public void testPassCollectionToEnum_returnCollectionEnum() {
+        Assertions.assertEquals(
+            TypesToGenerate.COLLECTION,
+            TypesToGenerate.getEnum(List.class)
+        );
+    }
+
+    @Test
+    public void testPassMapToEnum_returnDictionaryEnum() {
+        Assertions.assertEquals(
+            TypesToGenerate.DICTIONARY,
+            TypesToGenerate.getEnum(Map.class)
         );
     }
 
