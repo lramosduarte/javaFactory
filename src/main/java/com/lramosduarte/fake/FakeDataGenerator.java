@@ -22,6 +22,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.stream.StreamSupport;
 
 
+/**
+ * Class that can be used to factory in tests, seeding data,
+ * or anything else thats need of a new instance of class with data.
+ */
 public class FakeDataGenerator {
 
     private static FakeDataGenerator instance;
@@ -40,10 +44,26 @@ public class FakeDataGenerator {
         TypesToGenerate.NUMBER, new NumberGenerator()
     );
 
+    /**
+     * Make a fake data to type set in enum, you can to check the types supported inside enum.
+     * @param type type identified by enum
+     * @param <TypeObject> instance compatible with type
+     * @return instance with random value
+     * @see TypesToGenerate
+     */
     public <TypeObject> TypeObject make(TypesToGenerate type) {
         return (TypeObject) this.MAP_GENERATOR.get(type).generate(type.size());
     }
 
+    /**
+     * Make a new instance of class and generate values to attributes supported.
+     * @param cls reference of class
+     * @param <ObjectClass> instance of class
+     * @return new instance of class with values returned by method
+     * @throws IllegalAccessException
+     * @throws InstantiationException
+     * @throws ClassNotFoundException
+     */
     public <ObjectClass> ObjectClass make(Class<?> cls) throws IllegalAccessException, InstantiationException, ClassNotFoundException {
         Iterable<Attribute> attributes = this.analyser.analyse(cls);
         ObjectClass objectClass = (ObjectClass) cls.newInstance();
@@ -75,6 +95,10 @@ public class FakeDataGenerator {
         new DefaultSetter(FakeDataGenerator.getInstance()).setAttribute(attribute, object);
     }
 
+    /**
+     * Return instance of FakeGenerator
+     * @return
+     */
     public static FakeDataGenerator getInstance() {
         if (FakeDataGenerator.instance == null) {
             FakeDataGenerator.instance = new FakeDataGenerator();
