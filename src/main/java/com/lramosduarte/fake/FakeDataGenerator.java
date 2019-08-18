@@ -1,5 +1,10 @@
 package com.lramosduarte.fake;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.StreamSupport;
+
 import com.google.common.collect.ImmutableMap;
 
 import com.lramosduarte.analyser.Analyser;
@@ -17,9 +22,6 @@ import com.lramosduarte.fake.setter.DefaultSetter;
 import com.lramosduarte.fake.setter.DictionarySetter;
 import com.lramosduarte.fake.setter.ObjectSetter;
 import com.lramosduarte.fake.setter.ShortSetter;
-
-import java.lang.reflect.InvocationTargetException;
-import java.util.stream.StreamSupport;
 
 
 /**
@@ -64,10 +66,27 @@ public class FakeDataGenerator {
      * @throws InstantiationException
      * @throws ClassNotFoundException
      */
-    public <ObjectClass> ObjectClass make(Class<?> cls) throws IllegalAccessException, InstantiationException, ClassNotFoundException {
+    public <ObjectClass> ObjectClass make(Class<?> cls) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+        return this.makeAndIgnore(cls, new HashSet<>());
+    }
+
+    /**
+     * Make a new instance of class and generate values to attributes supported and ignore attributes that pass in set.
+     * @param cls reference of class
+     * @param attributestoIgnore set of attributes that will ignoreds
+     * @param <ObjectClass> instance of class
+     * @return new instance of class with values returned by method ignoring some fields
+     * @throws IllegalAccessException
+     * @throws InstantiationException
+     * @throws ClassNotFoundException
+     */
+    public <ObjectClass> ObjectClass makeAndIgnore(Class<?> cls, Set<String> attributestoIgnore) throws IllegalAccessException, InstantiationException, ClassNotFoundException {
         Iterable<Attribute> attributes = this.analyser.analyse(cls);
         ObjectClass objectClass = (ObjectClass) cls.newInstance();
         StreamSupport.stream(attributes.spliterator(), false).forEach(a -> {
+            if (attributestoIgnore.contains(a.name)) {
+                return;
+            }
             try {
                 this.setAttributeValue(a, objectClass);
             } catch (ReflectiveOperationException ex) {
