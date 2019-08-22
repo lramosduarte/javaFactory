@@ -1,0 +1,14 @@
+package com.github.lramosduarte.classutils;
+
+public class SimpleClassAttributesPrimitives {
+
+    public boolean atrBool;
+//    public byte atrByte;
+    public char atrChar;
+    public short atrShort;
+    public int atrInt;
+    public long atrLong;
+    public float atrFloat;
+    public double atrDouble;
+
+}
