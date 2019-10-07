@@ -73,7 +73,7 @@ public class FakeDataGenerator {
     /**
      * Make a new instance of class and generate values to attributes supported and ignore attributes that pass in set.
      * @param cls reference of class
-     * @param attributestoIgnore set of attributes that will ignoreds
+     * @param attributestoIgnore set of attributes that will be ignored
      * @param <ObjectClass> instance of class
      * @return new instance of class with values returned by method ignoring some fields
      * @throws IllegalAccessException
@@ -125,4 +125,11 @@ public class FakeDataGenerator {
         return FakeDataGenerator.instance;
     }
 
+    public static <ObjectClass> ObjectClass fake(Class<ObjectClass> cls) {
+        try {
+            return FakeDataGenerator.getInstance().make(cls);
+        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
 }

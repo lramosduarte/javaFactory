@@ -1,12 +1,13 @@
 [![Build Status](https://travis-ci.org/lramosduarte/javaFactory.svg?branch=master)](https://travis-ci.org/lramosduarte/javaFactory) [![codecov](https://codecov.io/gh/lramosduarte/javaFactory/branch/master/graph/badge.svg)](https://codecov.io/gh/lramosduarte/javaFactory)
 
 # javaFactory
-Library made to be easy to create models with test writing data. JavaFactory is inspired by [model-mommy](https://model-mommy.readthedocs.io/en/latest/index.html) mode of use. 
+A library that makes it easy to create models with test data. JavaFactory is inspired by [model-mommy](https://model-mommy.readthedocs.io/en/latest/index.html). 
 
-With a single line you can create an object with values(includind nested objects/collections/maps).
+With a single line, you can create an object with values (including nested objects, collections and maps).
 
 # How to use
-You can use this lib for generate fake values, seeding a database, factory in tests, etc.
+
+You can use this lib to generate fake values, seeding a database, factories in tests, etc.
 
 ## Requirements
 
@@ -17,17 +18,21 @@ You can use this lib for generate fake values, seeding a database, factory in te
 
 ## Hands on
 
-The only thing you need is the class and type one single line:
+The only thing you need is the model's class and one single line:
 
 ```java
-TempClass object = generator.make(TempClass.Class);
+import static com.github.lramosduarte.fake.FakeDataGenerator.fake;
+
+TempClass object = fake(TempClass.Class);
 ```
 
-***TANDAM!*** you have a new instance of class and more important, with values!
+***TANDAM!*** you have a new instance of the class with those all-important random values!
 
 # Report a problem
-You are welcome to use make new [Issues](https://github.com/lramosduarte/javaFactory/issues), just don't be disrespectful.
+
+You are welcome to raise new [issues](https://github.com/lramosduarte/javaFactory/issues), just
+don't be disrespectful.
 
 # Contribution
 
-This is a new project, then Contributors are welcome.
+This is a new project; contributors are welcome.

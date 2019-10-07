@@ -4,9 +4,13 @@ import com.github.lramosduarte.classutils.SimpleClassAttributesPrimitives;
 import com.github.lramosduarte.classutils.ClassWithCollections;
 import com.github.lramosduarte.classutils.ClassWithDictionarys;
 import com.github.lramosduarte.data.TypesToGenerate;
+import com.github.lramosduarte.exception.GenerateValueException;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
+import java.util.Collections;
 
 
 public class FakeDataGeneratorTest {
@@ -82,4 +86,35 @@ public class FakeDataGeneratorTest {
         Assertions.assertNotNull(object.getAtrDictionary());
     }
 
+    @Test
+    public void makeAndIgnoreThrowsGenerateValueExceptionWhenClassIsAbstract() {
+        Assertions.assertThrows(
+            GenerateValueException.class,
+            () -> FakeDataGenerator.getInstance().makeAndIgnore(WrapperClass.class, Collections.emptySet()));
+    }
+
+    @Test
+    public void fakeThrowsRuntimeErrorsForInstantiationException() {
+        Assertions.assertThrows(
+            RuntimeException.class,
+            () -> FakeDataGenerator.fake(AbstractClass.class));
+    }
+
+    public static abstract class AbstractClass {}
+
+    public static class WrapperClass {
+        InnerPrivateClass field;
+
+        public InnerPrivateClass getField() {
+            return field;
+        }
+
+        public void setField(InnerPrivateClass field) {
+            this.field = field;
+        }
+    }
+
+    private class InnerPrivateClass {
+        public InnerPrivateClass() {}
+    }
 }

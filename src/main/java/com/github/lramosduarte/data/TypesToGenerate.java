@@ -6,7 +6,6 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
-
 public enum TypesToGenerate {
     BOOL(1),
     NUMBER(4),
