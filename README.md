@@ -14,7 +14,42 @@ You can use this lib to generate fake values, seeding a database, factories in t
 - Java 1.8+
 
 ## Install
-**TODO**
+### jitpack
+
+1. Maven
+    1. Add the JitPack repository to your build file    
+    ```xml
+    <repositories>
+      <repository>
+          <id>jitpack.io</id>
+          <url>https://jitpack.io</url>
+      </repository>
+    </repositories>
+    ```
+    2. Add depedency
+    ```xml
+    <dependency>
+        <groupId>com.github.lramosduarte</groupId>
+        <artifactId>javaFactory</artifactId>
+        <version>{{VERSION|TAG}}</version>
+    </dependency>
+    ```
+2. Gradle
+    1. Add the JitPack repository to your build file
+    ```
+      allprojects {
+        repositories {
+          ...
+          maven { url 'https://jitpack.io' }
+        }
+      }
+    ```
+    2. Add depedency
+    ```
+      dependencies {
+        implementation 'com.github.lramosduarte:javaFactory:{{VERSION|TAG}}'
+      }
+    ```
 
 ## Hands on
 
