@@ -26,7 +26,7 @@ public class CollectionSetter implements Setter, AnalyserGenerics {
         TypesToGenerate typeParam =
             this.analyseParamsGenerics((ParameterizedType) attribute.field.getGenericType(), 1).get(0);
         for (int i = 0; i < attribute.type.size(); i++) {
-            collection.add(this.fakeDataGenerator.make(typeParam));
+            collection.add(this.fakeDataGenerator.make(Attribute.ofTypesToGenerate(typeParam)));
         }
         try {
             attribute.field.set(object, collection);
