@@ -18,7 +18,7 @@ public class DefaultSetter implements Setter {
     @Override
     public <Instance> void setAttribute(Attribute attribute, Instance object) throws IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException {
         attribute.field.setAccessible(true);
-        Object value = this.fakeDataGenerator.make(attribute.type);
+        Object value = this.fakeDataGenerator.make(attribute);
         try {
             attribute.field.set(object, value);
         } catch (IllegalArgumentException ignored) {

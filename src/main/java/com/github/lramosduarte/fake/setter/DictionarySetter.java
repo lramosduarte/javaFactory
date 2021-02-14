@@ -29,8 +29,8 @@ public class DictionarySetter implements Setter, AnalyserGenerics {
             this.analyseParamsGenerics((ParameterizedType) attribute.field.getGenericType(), this.QUANTITY_TO_KEY_AND_VALUE);
         for (int i = 0; i < attribute.type.size(); i++) {
             dictionary.put(
-                this.fakeDataGenerator.make(typesParams.get(0)),
-                this.fakeDataGenerator.make(typesParams.get(1))
+                this.fakeDataGenerator.make(Attribute.ofTypesToGenerate(typesParams.get(0))),
+                this.fakeDataGenerator.make(Attribute.ofTypesToGenerate(typesParams.get(1)))
             );
         }
         attribute.field.set(object, dictionary);

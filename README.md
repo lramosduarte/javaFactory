@@ -75,6 +75,16 @@ TempClass object = FakeDataGenerator.getInstance().makeAndIgnore(TempClass.class
 
 ***Until now, we don't have any implementation for shortcut call the method `makeAndIgnore` like `fake`.***
 
+### Custom
+Some types may have the size of the generated value changed with the use of some customizations.
+
+Here is the list of supported customizations(**under development**):
+  - @Size(Javax validators)
+    ```java
+    /*Max parameter will be considerer*/
+    @Size(max = XXXXX)
+    ```
+
 # Report a problem
 
 You are welcome to raise new [issues](https://github.com/lramosduarte/javaFactory/issues), just
@@ -89,3 +99,5 @@ This is a new project; contributors are welcome.
 - [ ] Suport to enum Type
 - [ ] Default values
 - [ ] Ignore some attributes
+- [-] Support Javax validators
+    * **DOING** Partial support

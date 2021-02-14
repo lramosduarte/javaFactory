@@ -53,8 +53,8 @@ public class FakeDataGenerator {
      * @return instance with random value
      * @see TypesToGenerate
      */
-    public <TypeObject> TypeObject make(TypesToGenerate type) {
-        return (TypeObject) this.MAP_GENERATOR.get(type).generate(type.size());
+    public <TypeObject> TypeObject make(Attribute attribute) {
+        return (TypeObject) this.MAP_GENERATOR.get(attribute.type).generate(attribute.getLenght());
     }
 
     /**

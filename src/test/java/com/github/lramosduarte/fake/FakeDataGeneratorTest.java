@@ -1,8 +1,10 @@
 package com.github.lramosduarte.fake;
 
 import com.github.lramosduarte.classutils.SimpleClassAttributesPrimitives;
+import com.github.lramosduarte.analyser.AnalyserImp;
 import com.github.lramosduarte.classutils.ClassWithCollections;
 import com.github.lramosduarte.classutils.ClassWithDictionarys;
+import com.github.lramosduarte.data.Attribute;
 import com.github.lramosduarte.data.TypesToGenerate;
 import com.github.lramosduarte.exception.GenerateValueException;
 
@@ -11,6 +13,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
+
+import javax.validation.constraints.Size;
 
 
 public class FakeDataGeneratorTest {
@@ -26,7 +30,7 @@ public class FakeDataGeneratorTest {
     public void testGeneratorFakeDataToPrimitiveBool_returnBoolPrimitive() {
         Assertions.assertEquals(
             Boolean.class.getSimpleName(),
-            FakeDataGeneratorTest.generator.make(TypesToGenerate.BOOL).getClass().getSimpleName()
+            FakeDataGeneratorTest.generator.make(Attribute.ofTypesToGenerate(TypesToGenerate.BOOL)).getClass().getSimpleName()
         );
     }
 
@@ -34,7 +38,7 @@ public class FakeDataGeneratorTest {
     public void testGeneratorFakeDataToPrimitiveChar_returnChar() {
         Assertions.assertEquals(
             Character.class.getSimpleName(),
-            FakeDataGeneratorTest.generator.make(TypesToGenerate.CHAR).getClass().getSimpleName()
+            FakeDataGeneratorTest.generator.make(Attribute.ofTypesToGenerate(TypesToGenerate.CHAR)).getClass().getSimpleName()
         );
     }
 
@@ -42,7 +46,7 @@ public class FakeDataGeneratorTest {
     public void testGeneratorFakeDataToSmallString_returnString() {
         Assertions.assertEquals(
             String.class.getSimpleName(),
-            FakeDataGeneratorTest.generator.make(TypesToGenerate.SMALL_TEXT).getClass().getSimpleName()
+            FakeDataGeneratorTest.generator.make(Attribute.ofTypesToGenerate(TypesToGenerate.SMALL_TEXT)).getClass().getSimpleName()
         );
     }
 
@@ -50,7 +54,7 @@ public class FakeDataGeneratorTest {
     public void testGeneratorFakeDataToBigString_returnString() {
         Assertions.assertEquals(
             String.class.getSimpleName(),
-            FakeDataGeneratorTest.generator.make(TypesToGenerate.BIG_TEXT).getClass().getSimpleName()
+            FakeDataGeneratorTest.generator.make(Attribute.ofTypesToGenerate(TypesToGenerate.BIG_TEXT)).getClass().getSimpleName()
         );
     }
 
@@ -58,8 +62,20 @@ public class FakeDataGeneratorTest {
     public void testGeneratorFakeDataToNumber_returnNumber() {
         Assertions.assertEquals(
             Integer.class.getSimpleName(),
-            FakeDataGeneratorTest.generator.make(TypesToGenerate.NUMBER).getClass().getSimpleName()
+            FakeDataGeneratorTest.generator.make(Attribute.ofTypesToGenerate(TypesToGenerate.NUMBER)).getClass().getSimpleName()
         );
+    }
+
+    @Test
+    public void testGeneratorFakeDataToStringWithCustomLengthFromSizeAnnotationJavax__returnStringWithDefaultLengthChanged()
+            throws ClassNotFoundException {
+        class ClassUsingJavaxAnnotations {
+            @Size(min = 1, max = 10)
+            String atrString;
+        }
+        Attribute attribute = AnalyserImp.getAnalyser().analyse(ClassUsingJavaxAnnotations.class).iterator().next();
+        String stringWithCustomSize = FakeDataGeneratorTest.generator.make(attribute);
+        Assertions.assertNotEquals(TypesToGenerate.SMALL_TEXT.size(), stringWithCustomSize.length());
     }
 
     @Test
