@@ -99,5 +99,14 @@ This is a new project; contributors are welcome.
 - [ ] Suport to enum Type
 - [ ] Default values
 - [ ] Ignore some attributes
+- [X] Support java.time objects
+  * java.time.DayOfWeek;
+  * java.time.LocalDate;
+  * java.time.LocalDateTime;
+  * java.time.LocalTime;
+  * java.time.Month;
+  * java.time.ZoneOffset;
+  * java.time.ZonedDateTime;
+- [X] Support nested classes
 - [-] Support Javax validators
     * **DOING** Partial support
