@@ -3,6 +3,10 @@ package com.github.lramosduarte.data;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -143,6 +147,38 @@ public class TypesToGenerateTest {
         Assertions.assertEquals(
             TypesToGenerate.DICTIONARY,
             TypesToGenerate.getEnum(Map.class)
+        );
+    }
+
+    @Test
+    public void testPassLocalDateTimeToEnum_returnDateTimeEnum() {
+        Assertions.assertEquals(
+            TypesToGenerate.DATETIME,
+            TypesToGenerate.getEnum(LocalDateTime.class)
+        );
+    }
+
+    @Test
+    public void testPassLocalTimeToEnum_returnDateTimeEnum() {
+        Assertions.assertEquals(
+            TypesToGenerate.DATETIME,
+            TypesToGenerate.getEnum(LocalTime.class)
+        );
+    }
+
+    @Test
+    public void testPassLocalDateToEnum_returnDateTimeEnum() {
+        Assertions.assertEquals(
+            TypesToGenerate.DATETIME,
+            TypesToGenerate.getEnum(LocalDate.class)
+        );
+    }
+
+    @Test
+    public void testPassZonedDateTimeToEnum_returnDateTimeEnum() {
+        Assertions.assertEquals(
+            TypesToGenerate.DATETIME,
+            TypesToGenerate.getEnum(ZonedDateTime.class)
         );
     }
 

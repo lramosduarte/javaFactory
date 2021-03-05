@@ -1,5 +1,6 @@
 package com.github.lramosduarte.fake;
 
+import com.github.lramosduarte.classutils.ClassDatetimeObjects;
 import com.github.lramosduarte.classutils.SimpleClassAttributesPrimitives;
 import com.github.lramosduarte.analyser.AnalyserImp;
 import com.github.lramosduarte.classutils.ClassWithCollections;
@@ -107,6 +108,20 @@ public class FakeDataGeneratorTest {
         Assertions.assertThrows(
             GenerateValueException.class,
             () -> FakeDataGenerator.getInstance().makeAndIgnore(WrapperClass.class, Collections.emptySet()));
+    }
+
+    @Test
+    public void makeClassAllAtributesDateTime__returnAllAttributesWithValues() throws IllegalAccessException, ClassNotFoundException, InstantiationException {
+        ClassDatetimeObjects datetimeClass = FakeDataGeneratorTest.generator.make(ClassDatetimeObjects.class);
+        boolean attributesNotNull = (
+            datetimeClass.getAtrDayOfWeek() != null &&
+            datetimeClass.getAtrLocalDate() != null &&
+            datetimeClass.getAtrLocalDateTime() != null &&
+            datetimeClass.getAtrZonedDateTime() != null &&
+            datetimeClass.getAtrMonth() != null &&
+            datetimeClass.getAtrLocalTime() != null
+        );
+        Assertions.assertTrue(attributesNotNull);
     }
 
     @Test

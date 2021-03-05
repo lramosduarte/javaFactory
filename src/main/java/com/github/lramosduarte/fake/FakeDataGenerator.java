@@ -12,16 +12,12 @@ import com.github.lramosduarte.data.TypesToGenerate;
 import com.github.lramosduarte.exception.GenerateValueException;
 import com.github.lramosduarte.fake.generator.BoolGenerator;
 import com.github.lramosduarte.fake.generator.CharGenerator;
+import com.github.lramosduarte.fake.generator.DateTimeGenerator;
 import com.github.lramosduarte.fake.generator.Generator;
 import com.github.lramosduarte.fake.generator.NumberGenerator;
 import com.github.lramosduarte.fake.generator.StringGenerator;
-import com.github.lramosduarte.fake.setter.CollectionSetter;
-import com.github.lramosduarte.fake.setter.DictionarySetter;
-import com.github.lramosduarte.fake.setter.ObjectSetter;
-import com.github.lramosduarte.fake.setter.ShortSetter;
+import com.github.lramosduarte.fake.setter.*;
 import com.google.common.collect.ImmutableMap;
-
-import com.github.lramosduarte.fake.setter.DefaultSetter;
 
 
 /**
@@ -38,13 +34,14 @@ public class FakeDataGenerator {
         this.analyser = AnalyserImp.getAnalyser();
     };
 
-    private ImmutableMap<TypesToGenerate, Generator> MAP_GENERATOR = ImmutableMap.of(
-        TypesToGenerate.BOOL, new BoolGenerator(),
-        TypesToGenerate.CHAR, new CharGenerator(),
-        TypesToGenerate.SMALL_TEXT, new StringGenerator(),
-        TypesToGenerate.BIG_TEXT, new StringGenerator(),
-        TypesToGenerate.NUMBER, new NumberGenerator()
-    );
+    private ImmutableMap<TypesToGenerate, Generator> MAP_GENERATOR = ImmutableMap.<TypesToGenerate, Generator>builder()
+        .put(TypesToGenerate.BOOL, new BoolGenerator())
+        .put(TypesToGenerate.CHAR, new CharGenerator())
+        .put(TypesToGenerate.SMALL_TEXT, new StringGenerator())
+        .put(TypesToGenerate.BIG_TEXT, new StringGenerator())
+        .put(TypesToGenerate.NUMBER, new NumberGenerator())
+        .put(TypesToGenerate.DATETIME, new DateTimeGenerator())
+        .build();
 
     /**
      * Make a fake data to type set in enum, you can to check the types supported inside enum.
@@ -109,6 +106,9 @@ public class FakeDataGenerator {
             return;
         } else if (TypesToGenerate.DICTIONARY.equals(attribute.type)) {
             new DictionarySetter(FakeDataGenerator.getInstance()).setAttribute(attribute, object);
+            return;
+        } else if (TypesToGenerate.DATETIME.equals(attribute.type)) {
+            new DateTimeSetter(FakeDataGenerator.getInstance()).setAttribute(attribute, object);
             return;
         }
         new DefaultSetter(FakeDataGenerator.getInstance()).setAttribute(attribute, object);

@@ -2,6 +2,7 @@ package com.github.lramosduarte.data;
 
 import com.google.common.collect.Sets;
 
+import java.time.temporal.TemporalAccessor;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
@@ -14,7 +15,8 @@ public enum TypesToGenerate {
     BIG_TEXT(4000),
     OBJECT(0),
     COLLECTION(1),
-    DICTIONARY(1);
+    DICTIONARY(1),
+    DATETIME(1);
 
     private int size;
 
@@ -42,6 +44,8 @@ public enum TypesToGenerate {
             return TypesToGenerate.COLLECTION;
         } else if (Map.class.isAssignableFrom(type)) {
             return TypesToGenerate.DICTIONARY;
+        } else if (TemporalAccessor.class.isAssignableFrom(type)) {
+            return TypesToGenerate.DATETIME;
         }
         return OBJECT;
     }
