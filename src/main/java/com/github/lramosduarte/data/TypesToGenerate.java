@@ -16,7 +16,8 @@ public enum TypesToGenerate {
     OBJECT(0),
     COLLECTION(1),
     DICTIONARY(1),
-    DATETIME(1);
+    DATETIME(1),
+    ENUM(1);
 
     private int size;
 
@@ -46,6 +47,8 @@ public enum TypesToGenerate {
             return TypesToGenerate.DICTIONARY;
         } else if (TemporalAccessor.class.isAssignableFrom(type)) {
             return TypesToGenerate.DATETIME;
+        } else if (Enum.class.isAssignableFrom(type)) {
+            return TypesToGenerate.ENUM;
         }
         return OBJECT;
     }

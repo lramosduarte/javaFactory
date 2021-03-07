@@ -1,5 +1,6 @@
 package com.github.lramosduarte.data;
 
+import com.github.lramosduarte.classutils.TypeEnum;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -179,6 +180,14 @@ public class TypesToGenerateTest {
         Assertions.assertEquals(
             TypesToGenerate.DATETIME,
             TypesToGenerate.getEnum(ZonedDateTime.class)
+        );
+    }
+
+    @Test
+    public void testPassEnumToEnum_returnEnumTypeEnum() {
+        Assertions.assertEquals(
+            TypesToGenerate.ENUM,
+            TypesToGenerate.getEnum(TypeEnum.class)
         );
     }
 
