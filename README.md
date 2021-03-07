@@ -96,7 +96,7 @@ This is a new project; contributors are welcome.
 
 
 # Todo
-- [ ] Suport to enum Type
+- [X] Suport to enum Type
 - [ ] Default values
 - [ ] Ignore some attributes
 - [X] Support java.time objects
